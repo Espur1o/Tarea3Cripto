@@ -268,16 +268,15 @@ if __name__ == "__main__":
     dec=r.decrypt(enc)
     print (dec)
     r = Rabbit(0)
-    
     '''
     r = Rabbit(0)
     dec=r.decrypt("MéàÙ®Ï×4Õ~Ë2JçsàtÙ=KyæeÀ´HX{ùój")
     print (dec)
+    r = Rabbit(0)
     enc=r.encrypt("Oh dear! Oh dear! I shall be late!")
-    index=open("index.html","w",encoding="utf-8")
-    index.write('<p>Este sitio contiene un mensaje secreto</p> \n') 
-    index.write('<div class="rabbit" id="'+str(enc)+'"></div>')
-    
+    '''index=open("index.html","w",encoding="utf-8")
+    index.write('<meta charset="UTF-8"/> \n <p>Este sitio contiene un mensaje secreto</p> \n') 
+    index.write('<div class="rabbit" id="'+str(enc)+'"></div>')'''
     r = Rabbit(0)
     dec=r.decrypt(enc)
     print (enc)

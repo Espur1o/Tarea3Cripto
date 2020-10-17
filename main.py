@@ -1,4 +1,4 @@
-
+import codecs
 WORDSIZE = 0x100000000
 
 rot08 = lambda x: ((x <<  8) & 0xFFFFFFFF) | (x >> 24)
@@ -258,29 +258,55 @@ if __name__ == "__main__":
         r.encrypt(x)
         t = time.time() - t
         return t, n / t
-
+    def writeIndex(mensaje):
+        index=open("index.html","w",encoding="utf-8")
+        index.write('<p>Este sitio contiene un mensaje secreto</p> \n') 
+        index.write('<div class="rabbit" id="'+str(mensaje)+'"></div>')
+        return (None)
      # --- encrypt ---
-
-    '''r = Rabbit(0)
-    enc=r.encrypt("hola mundo")
-    print (enc, len(enc))
-    r = Rabbit(0)
-    dec=r.decrypt(enc)
-    print (dec)
-    r = Rabbit(0)
-    '''
-    r = Rabbit(0)
-    dec=r.decrypt("MéàÙ®Ï×4Õ~Ë2JçsàtÙ=KyæeÀ´HX{ùój")
-    print (dec)
-    r = Rabbit(0)
-    enc=r.encrypt("Oh dear! Oh dear! I shall be late!")
-    '''index=open("index.html","w",encoding="utf-8")
-    index.write('<meta charset="UTF-8"/> \n <p>Este sitio contiene un mensaje secreto</p> \n') 
-    index.write('<div class="rabbit" id="'+str(enc)+'"></div>')'''
-    r = Rabbit(0)
-    dec=r.decrypt(enc)
-    print (enc)
-    print (dec)
+    def encriptar(plano,llave=0, ivv=None):
+        r=Rabbit(llave,ivv)
+        encrypted=r.encrypt(plano)
+        #print ("encriptado= "+str(encrypted))
+        return encrypted
+    def desencriptar(ofuscado, llave=0, ivv=None):
+        r=Rabbit(llave,ivv)
+        decrypted=r.decrypt(ofuscado)
+        #print ("desencriptado"+str(decrypted))
+        return decrypted
     
+    
+    
+    #  --- VARIABLES ---
+    plaintext="Oh dear! Oh dear! I shall be late!" #texto plano
+    llave=0         #llave
+    ivv=None        #IV
+
+    #  --- PROCESO ---
+    e=str(encriptar(plaintext,llave,ivv))
+    d=desencriptar("MéàÙ®Ï×4Õ~Ë2JçsàtÙ=KyæeÀ´HX{ùój",llave, ivv)
+    writeIndex(str(e))
+    print (plaintext)
+    print("encriptado= "+ str(e))
+    print("desencriptado= "+ str(d))
+    '''
+    #r = Rabbit(0)
+    #dec=r.decrypt("MéàÙ®Ï×4Õ~Ë2JçsàtÙ=KyæeÀ´HX{ùój")
+    #print (dec)
+    """plaintext="Oh dear! Oh dear! I shall be late!" #plain
+    plaintext=plaintext.encode()        #encode utf8
+    print (plaintext)
+    r = Rabbit(0)
+    enc=r.encrypt(str(plaintext))       #encriptado
+    print (enc)
+    enc=codecs.encode(enc,"hex")
+    print (enc)
+    r = Rabbit(0)       
+    dec=r.decrypt(enc)  #desencriptado
+    print (dec)         #hex
+    enc=enc.decode()    #decode
+    print (enc)         #plain
+    
+    r=Rabbit(0)'''
     
     
